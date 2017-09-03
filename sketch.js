@@ -1,24 +1,10 @@
 // this is the variable your picker should change
 var pickedColor = 0;
 
-var colourSquareWidth;
-var colourSquareHeight;
-var colourHorizontalMargins;
-var colourVerticalMargins;
-var square1XPos;
-var square2XPos;
-var square3XPos;
-var square4XPos;
-var square5XPos;
-var square6XPos;
-var square7XPos;
-var square8XPos;
-var squaresYPosSecondRow;
 var colourFirstSelection;
 var myCanvas;
 var selectedColour;
 var candidateColour;
-var img;
 
 var input;
 var button;
@@ -32,9 +18,13 @@ var counterIsActivated;
 var sound;
 var myFont;
 
-var fruits = ["apple", "dragonfruit", "banana", "starfruit"];
+var challengeWords = ["apple", "dragonfruit", "banana", "starfruit", "amphisbaena", "argle-bargle",
+    "bergschrund", "blatherskite", "clepsydra", "commensalism", "cybersquatting", "disembogue",
+    "floccinaucinihilipilification", "hunt-and-peck", "prosopagnosia",
+    "peely-wally", "merrythought", "monkey's-wedding"];
 
 var challengeWord;
+var myText;
 
 function preload() {
     sound = loadSound('chime.mp3');
@@ -52,13 +42,15 @@ function setup() {
     time = millis();//store the current time
 
     input = createInput();
-    input.size(180, 30);
-    input.style('font-size', '20px');
-    input.position(width/2 - input.width, height * .8);
+    input.size(220, 50);
+    input.style('font-size', '35px');
+    input.position(width/2 - input.width, height - (input.height + 30));
     input.hide();
 
     button = createButton('submit');
-    button.position(input.x + input.width, height * .8);
+    button.size(130, 55);
+    button.style('font-size', '35px')
+    button.position(input.x + input.width + 10, height - (button.height + 30));
     button.mousePressed(storeWord);
     button.hide();
 
@@ -72,20 +64,23 @@ function draw() {
     push();
     fill(300);
     noStroke();
-    rect(0, height * .8 - 125, width, 150);
+    rect(0, height - 220, width, 220);
     pop();
 
-    if (counter < 10 && counter >= 0 && counterIsActivated) {
+    if (counter < 5 && counter >= 0 && counterIsActivated) {
         input.show();
         button.show();
         fill(50);
         textSize(50);
         push();
         textFont(myFont);
-        text(challengeWord, width/2 - input.width, height * .8 - 75, 500, 500);
+        myText = text(challengeWord, width/2 - input.width, height - 150, 500, 500);
         pop();
-        text(counter, width/2 - input.width, height * .8 - 125, 500, 500);
-        
+        text(counter, width/2 - input.width, height - 200, 500, 500);
+        push();
+        textSize(25);
+        text("But First, Please Prove You're Not a Robot.", width/2 - input.width, height - 220, 500, 500);
+        pop();
     } else if (!counterIsActivated) {
         input.hide();
         button.hide();
@@ -93,24 +88,21 @@ function draw() {
 
 
     selectedColour = get(mouseX, mouseY);
-    colourSquareWidth = width / 8;
-    colourSquareHeight = height / 8;
-    colourHorizontalMargins = width / 60;
-    colourVerticalMargins = height / 60;
-    square1XPos = width - colourSquareWidth * 8 + colourHorizontalMargins;
-    square2XPos = width - colourSquareWidth * 7 + colourHorizontalMargins;
-    square3XPos = width - colourSquareWidth * 6 + colourHorizontalMargins;
-    square4XPos = width - colourSquareWidth * 5 + colourHorizontalMargins;
-    square5XPos = width - colourSquareWidth * 4 + colourHorizontalMargins;
-    square6XPos = width - colourSquareWidth * 3 + colourHorizontalMargins;
-    square7XPos = width - colourSquareWidth * 2 + colourHorizontalMargins;
-    square8XPos = width - colourSquareWidth * 1 + colourHorizontalMargins;
-    squaresYPosSecondRow = colourVerticalMargins + colourSquareHeight;
 
 
     // display the currently "picked" colour in the bottom-right
+    push();
     fill(pickedColor);
     rect(width-100, height-100, 100, 100);
+    pop();
+
+    if (counterIsActivated) {
+        push();
+        fill(candidateColour);
+        rect(width-200, height-100, 100, 100);
+        pop();
+    }
+
 
     // Colour Painter
     if(mouseIsPressed){
@@ -140,55 +132,195 @@ function draw() {
 }
 
 function colorDrawer() {
+
+    var horizontalMargins = width * .05;
+    var verticalMargins = height * .05;
+    var colourSquareWidth = (width - horizontalMargins) / 10;
+    var colourSquareHeight = (height - verticalMargins) / 10;
+    var square1XPos = horizontalMargins /2;
+    var square2XPos = square1XPos + colourSquareWidth;
+    var square3XPos = square2XPos + colourSquareWidth;
+    var square4XPos = square3XPos + colourSquareWidth;
+    var square5XPos = square4XPos + colourSquareWidth;
+    var square6XPos = square5XPos + colourSquareWidth;
+    var square7XPos = square6XPos + colourSquareWidth;
+    var square8XPos = square7XPos + colourSquareWidth;
+    var square9XPos = square8XPos + colourSquareWidth;
+    var square10XPos = square9XPos + colourSquareWidth;
+
+    var squaresYPosSecondRow = (verticalMargins / 2) + colourSquareHeight;
+    var squaresYPosThirdRow = (verticalMargins / 2) + colourSquareHeight * 2;
+    var squaresYPosFourthRow = (verticalMargins / 2) + colourSquareHeight * 3;
+
+
+
     push();
     noStroke();
     // COLOUR 1
-    fill('#14e81e');
-    rect(square1XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#f6fce9');
+    rect(square1XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
     //COLOUR 2
-    fill('#00ea8d');
-    rect(square2XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#fcda12');
+    rect(square2XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
     //COLOUR 3
-    fill('#017ed5');
-    rect(square3XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#fcb717');
+    rect(square3XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
     //COLOUR 4
-    fill('#b53dff');
-    rect(square4XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#fc9816');
+    rect(square4XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
     //COLOUR 5
-    fill('#73ffdb');
-    rect(square5XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#fc4016');
+    rect(square5XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
     //COLOUR 6
-    fill('#73ffdb');
-    rect(square6XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#fc090e');
+    rect(square6XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
     //COLOUR 7
-    fill('#73ffdb');
-    rect(square7XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#fc0267');
+    rect(square7XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
     //COLOUR 8
-    fill('#73ffdb');
-    rect(square8XPos, colourVerticalMargins, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    fill('#fc0bbb');
+    rect(square8XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
-    //COLOUR 5
-    fill('#8d00c4');
-    rect(square1XPos, squaresYPosSecondRow, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    //COLOUR 9
+    fill('#cf1ffc');
+    rect(square9XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
-    //COLOUR 6
-    fill('#FFFF00');
-    rect(square2XPos, squaresYPosSecondRow, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    //COLOUR 10
+    fill('#2722fc');
+    rect(square10XPos, verticalMargins / 2, colourSquareWidth, colourSquareHeight);
 
-    //COLOUR 7
-    fill('#FC4A1A');
-    rect(square3XPos, squaresYPosSecondRow, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    //COLOUR 11
+    fill('#1a83fc');
+    rect(square1XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
 
-    //COLOUR 8
-    fill('#FF0000');
-    rect(square4XPos, squaresYPosSecondRow, colourSquareWidth - colourHorizontalMargins, colourSquareHeight - colourVerticalMargins);
+    //COLOUR 12
+    fill('#17c9ff');
+    rect(square2XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 13
+    fill('#0bffa2');
+    rect(square3XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 14
+    fill('#05ff39');
+    rect(square4XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 15
+    fill('#55da0d');
+    rect(square5XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 16
+    fill('#c4db11');
+    rect(square6XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 17
+    fill('#d6af09');
+    rect(square7XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 18
+    fill('#d0230a');
+    rect(square8XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 19
+    fill('#97053f');
+    rect(square9XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 20
+    fill('#8d0689');
+    rect(square10XPos, squaresYPosSecondRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 21
+    fill('#05038d');
+    rect(square1XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 22
+    fill('#083074');
+    rect(square2XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 23
+    fill('#07717f');
+    rect(square3XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 24
+    fill('#0b9137');
+    rect(square4XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 25
+    fill('#0aa716');
+    rect(square5XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 26
+    fill('#1a3d04');
+    rect(square6XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 27
+    fill('#525204');
+    rect(square7XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 28
+    fill('#7e0906');
+    rect(square8XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 29
+    fill('#61021d');
+    rect(square9XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 30
+    fill('#550957');
+    rect(square10XPos, squaresYPosThirdRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 31
+    fill('#200343');
+    rect(square1XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 32
+    fill('#042035');
+    rect(square2XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 33
+    fill('#033822');
+    rect(square3XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 34
+    fill('#073d04');
+    rect(square4XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 35
+    fill('#192604');
+    rect(square5XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 36
+    fill('#392805');
+    rect(square6XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 37
+    fill('#332704');
+    rect(square7XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 38
+    fill('#2c0110');
+    rect(square8XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 39
+    fill('#070c23');
+    rect(square9XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+
+    //COLOUR 40
+    fill('#000000');
+    rect(square10XPos, squaresYPosFourthRow, colourSquareWidth, colourSquareHeight);
+    pop();
+
+    fill(50);
+    textSize(50);
+    push();
+    myText = text('Please select a colour', width/2 - input.width, squaresYPosFourthRow + colourSquareHeight, 500, 500);
     pop();
 }
 
@@ -196,7 +328,7 @@ function colorDrawer() {
 function mouseClicked(){
     if (!counterIsActivated) {
         setChallengeWord();
-        counter = 10;
+        counter = 5;
         candidateColour = selectedColour;
         counterIsActivated = true;
     }
@@ -204,7 +336,7 @@ function mouseClicked(){
 
 function setChallengeWord() {
     // var randomNumber = random(0,3);
-    challengeWord = fruits[Math.floor(Math.random() * fruits.length)];
+    challengeWord = challengeWords[Math.floor(Math.random() * challengeWords.length)];
 }
 
 function storeWord() {
