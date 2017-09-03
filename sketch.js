@@ -19,7 +19,7 @@ var sound;
 var myFont;
 
 var challengeWords = ["apple", "dragonfruit", "banana", "starfruit", "amphisbaena", "argle-bargle",
-    "bergschrund", "blatherskite", "clepsydra", "commensalism", "cybersquatting", "disembogue",
+    "bergschrund", "blatherskite", "clepsydra", "commensalism", "you-are-robot", "horrible-captcha", "cybersquatting", "disembogue",
     "floccinaucinihilipilification", "hunt-and-peck", "prosopagnosia",
     "peely-wally", "merrythought", "monkey's-wedding"];
 
