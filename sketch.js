@@ -326,7 +326,7 @@ function colorDrawer() {
 
 
 function mouseClicked(){
-    if (!counterIsActivated) {
+    if (!counterIsActivated && mouseY < height * .4 ) {
         setChallengeWord();
         counter = 5;
         candidateColour = selectedColour;
