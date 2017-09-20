@@ -1,8 +1,3 @@
-# COMP1720 template
-
-Here's the **javascript** template for making p5 sketches for COMP1720. If
-you've used Processing before, the p5 function names and general worldview will
-be really similar.
 
 ## Setup
 
@@ -26,20 +21,3 @@ be really similar.
 
 4. every time you save the `sketch.js` file, the live server will auto-update
    the sketch in Chrome
-
-### Notes
-
-This should work in all browsers, but we'll be using Chrome/Chromium in the
-labs, so it's probably best to use that.
-
-Also, if you do make a cool sketch, don't push the changes back up to the
-"template" repo (you probably don't have permission to do that anyway). Instead,
-create a new GitLab repo and push it up there.
-
-## Resources
-
-Here are a few places you'll find useful information:
-
-- [COMP1720 lab 1](https://cs.anu.edu.au/courses/comp1720/labs/01-intro/)
-- [p5.js reference](https://p5js.org/reference/)
-- [course website](https://cs.anu.edu.au/courses/comp1720/)
